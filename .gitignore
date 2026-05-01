@@ -1,0 +1,51 @@
+# Variables sensibles
+.env
+.env.*
+
+# Entorno virtual
+venv/
+env/
+ENV/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Testing / coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Pip / build
+pip-wheel-metadata/
+build/
+dist/
+*.spec
+
+# IDEs
+.vscode/
+.idea/
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# Mac
+.DS_Store
+
+# Logs
+*.log
+
+# Archivos temporales
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# Archivos Python entorno
+.python-version
+
+# Bases de datos locales (por si se usa en el futuro)
+*.sqlite3
