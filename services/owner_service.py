@@ -41,3 +41,9 @@ class OwnerService:
 
     def list_owners(self):
         return self.repo.get_all()
+    
+    def search_by_dni(self, dni):
+        return self.repo.get_by_dni(dni)
+
+    def search_by_id(self, id_owner):
+        return self.repo.get_by_id(id_owner)

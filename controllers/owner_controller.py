@@ -34,3 +34,9 @@ class OwnerController:
 
     def list_owners(self):
         return self.service.list_owners()
+
+    def search_by_dni(self, dni):
+        return self.service.search_by_dni(dni)
+
+    def search_by_id(self, id_owner):
+        return self.service.search_by_id(id_owner)
