@@ -10,4 +10,5 @@ def get_connection():
         f"SERVER={os.getenv('DB_SERVER')};"
         f"DATABASE={os.getenv('DB_NAME')};"
         "Trusted_Connection=yes;"
+        "TrustServerCertificate=yes;"
     )
