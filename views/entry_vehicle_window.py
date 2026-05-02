@@ -3,6 +3,9 @@ from PySide6.QtWidgets import (
     QPushButton, QComboBox, QMessageBox
 )
 
+from PySide6.QtWidgets import QMessageBox
+from views.owner_form_window import OwnerFormWindow
+from controllers.vehicle_controller import VehicleController
 from controllers.ticket_controller import TicketController
 
 
@@ -14,6 +17,7 @@ class EntryVehicleWindow(QWidget):
         self.setWindowTitle("Registrar ingreso")
         self.setMinimumSize(380, 260)
 
+        self.vehicle_controller = VehicleController()
         self.controller = TicketController()
 
         layout = QVBoxLayout()
@@ -54,15 +58,50 @@ class EntryVehicleWindow(QWidget):
             QMessageBox.warning(self, "Validación", "Debe seleccionar el tipo de vehículo.")
             return
 
+        vehicle = self.vehicle_controller.search_by_plate(plate)
+
+        if not vehicle:
+            reply = QMessageBox.question(
+                self,
+                "Vehículo no registrado",
+                "El vehículo no está registrado. ¿Desea crear un dueño?",
+                QMessageBox.Yes | QMessageBox.No
+            )
+
+            if reply == QMessageBox.Yes:
+                self.owner_form = OwnerFormWindow()
+                self.owner_form.owner_created.connect(
+                    lambda owner_id: self.create_vehicle_and_register(plate, vehicle_type, owner_id)
+                )
+                self.owner_form.show()
+                return
+            else:
+                owner_id = None
+        else:
+            owner_id = None
+
         success, message = self.controller.register_entry(
             plate=plate,
             vehicle_type=vehicle_type,
-            id_owner=None
+            id_owner=owner_id
         )
 
         if success:
             QMessageBox.information(self, "Éxito", message)
             self.input_plate.clear()
             self.combo_type.setCurrentIndex(0)
+        else:
+            QMessageBox.warning(self, "Error", message)
+
+    def create_vehicle_and_register(self, plate, vehicle_type, owner_id):
+        success, message = self.controller.register_entry(
+            plate=plate,
+            vehicle_type=vehicle_type,
+            id_owner=owner_id
+        )
+
+        if success:
+            QMessageBox.information(self, "Éxito", message)
+            self.input_plate.clear()
         else:
             QMessageBox.warning(self, "Error", message)

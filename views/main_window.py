@@ -46,21 +46,21 @@ class MainWindow(QWidget):
         btn_vehicles.clicked.connect(self.open_vehicles)
 
     def open_entry(self):
-        self.window = EntryVehicleWindow()
-        self.window.show()
+        self.entry_window = EntryVehicleWindow()
+        self.entry_window.show()
 
     def open_exit(self):
-        self.window = ExitVehicleWindow()
-        self.window.show()
+        self.exit_window = ExitVehicleWindow()
+        self.exit_window.show()
 
     def open_dashboard(self):
-        self.window = TicketsDashboardWindow()
-        self.window.show()
+        self.dashboard_window = TicketsDashboardWindow()
+        self.dashboard_window.show()
 
     def open_owners(self):
-        self.window = OwnerManagementWindow()
-        self.window.show()
+        self.owners_window = OwnerManagementWindow()
+        self.owners_window.show()
 
     def open_vehicles(self):
-        self.window = VehicleManagementWindow()
-        self.window.show()
+        self.vehicles_window = VehicleManagementWindow()
+        self.vehicles_window.show()
